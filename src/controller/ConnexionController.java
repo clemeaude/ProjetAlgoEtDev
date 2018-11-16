@@ -99,10 +99,24 @@ public class ConnexionController
 					{
 						System.out.println(e);
 					}	
-				}
-				else
-				{
-
+				} else {
+					Stage stage = new Stage();
+		    		Stage stage1 = new Stage();
+		    		try
+		    		{
+		    			Parent root = FXMLLoader.load(getClass().getResource("../ressources/IdPswNull.fxml"));
+		    			stage.setScene(new Scene(root));
+		    			stage.setTitle("Bienvenue");
+		    			stage.setResizable(false);
+		    			stage.show();
+					
+		    			stage1 = (Stage)inscrire.getScene().getWindow();
+		    			stage1.close();
+		    		
+		    		} catch(IOException e)
+		    		{
+		    			System.out.println(e);
+		    		}	
 				}
 				statement.close();
 			}catch (Exception e){

@@ -37,6 +37,9 @@ public class InscriptionController
     @FXML
     void clickOnSInscrire(ActionEvent event) throws SQLException 
     {
+
+		String Id = id.getText();
+		String psw = password.getText();
     	if(id.getText().isEmpty() || password.getText().isEmpty())
     	{
     		Stage stage = new Stage();
@@ -68,21 +71,15 @@ public class InscriptionController
     			String passwd = "101506";
 
     			Connection con = DriverManager.getConnection(url, user, passwd);
-
-    			String sql = "INSERT INTO player (ID, password) VALUES(?,?)";
-    			PreparedStatement statement = con.prepareStatement(sql);
-    			String Id = id.getText();
-    			String psw = password.getText();
-    			statement.setString(1, Id);
-    			statement.setString(2, psw);
-    			statement.executeUpdate();
+    			
     			String sql1 = "SELECT COUNT( * ) FROM player WHERE id = ? AND password = ?";
     			PreparedStatement state = con.prepareStatement(sql1);
     			state.setString(1, Id);
     			state.setString(2, psw);
     			ResultSet result = state.executeQuery();
-    			
-    			if(result.next())
+    			result.next();
+    			int nb = result.getInt(1);
+    			if(nb>0)
     			{
     				Stage stage = new Stage();
     	    		Stage stage1 = new Stage();
@@ -100,10 +97,14 @@ public class InscriptionController
     	    		} catch(IOException e)
     	    		{
     	    			System.out.println(e);
-    	    		}
-    			}else
-        		{
-        			Stage stage = new Stage();
+    	    		}        			
+    			} else {
+        			String sql = "INSERT INTO player (ID, password) VALUES(?,?)";
+        			PreparedStatement statement = con.prepareStatement(sql);
+        			statement.setString(1, Id);
+        			statement.setString(2, psw);
+        			statement.executeUpdate();
+    				Stage stage = new Stage();
         			Stage stage1 = new Stage();
         			try
         			{
@@ -120,7 +121,7 @@ public class InscriptionController
         			{
         				System.out.println(e);
         			}
-        		}
+    			}
     		} catch (ClassNotFoundException e) {
     			e.printStackTrace();
     		}
