@@ -15,6 +15,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
+import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
 public class InscriptionController 
@@ -27,6 +29,9 @@ public class InscriptionController
     
 	@FXML
     private Button inscrire;
+	
+    @FXML
+    private Text messErreur;
 
     @FXML
     private Button retour;
@@ -42,23 +47,7 @@ public class InscriptionController
 		String psw = password.getText();
     	if(id.getText().isEmpty() || password.getText().isEmpty())
     	{
-    		Stage stage = new Stage();
-    		Stage stage1 = new Stage();
-    		try
-    		{
-    			Parent root = FXMLLoader.load(getClass().getResource("../ressources/ErreurInscription.fxml"));
-    			stage.setScene(new Scene(root));
-    			stage.setTitle("Bienvenue");
-    			stage.setResizable(false);
-    			stage.show();
-			
-    			stage1 = (Stage)inscrire.getScene().getWindow();
-    			stage1.close();
-    		
-    		} catch(IOException e)
-    		{
-    			System.out.println(e);
-    		}
+    		messErreur.setOpacity(1);
     	}
     	else
     	{
@@ -72,7 +61,7 @@ public class InscriptionController
 
     			Connection con = DriverManager.getConnection(url, user, passwd);
     			
-    			String sql1 = "SELECT COUNT( * ) FROM player WHERE id = ? AND password = ?";
+    			String sql1 = "SELECT COUNT( * ) FROM player WHERE id = ? OR password = ?";
     			PreparedStatement state = con.prepareStatement(sql1);
     			state.setString(1, Id);
     			state.setString(2, psw);
@@ -81,23 +70,7 @@ public class InscriptionController
     			int nb = result.getInt(1);
     			if(nb>0)
     			{
-    				Stage stage = new Stage();
-    	    		Stage stage1 = new Stage();
-    	    		try
-    	    		{
-    	    			Parent root = FXMLLoader.load(getClass().getResource("../ressources/ErreurInscription.fxml"));
-    	    			stage.setScene(new Scene(root));
-    	    			stage.setTitle("Bienvenue");
-    	    			stage.setResizable(false);
-    	    			stage.show();
-
-    	    			stage1 = (Stage)inscrire.getScene().getWindow();
-    	    			stage1.close();
-
-    	    		} catch(IOException e)
-    	    		{
-    	    			System.out.println(e);
-    	    		}        			
+    				messErreur.setOpacity(1);      			
     			} else {
         			String sql = "INSERT INTO player (ID, password) VALUES(?,?)";
         			PreparedStatement statement = con.prepareStatement(sql);
@@ -138,7 +111,8 @@ public class InscriptionController
     	{
     		Parent root = FXMLLoader.load(getClass().getResource("../ressources/Connexion.fxml"));
     		stage.setScene(new Scene(root));
-			stage.setTitle("Bienvenue");
+			stage.setTitle("Connexion");
+			stage.getIcons().add(new Image("file:connexionIcon.jpg"));
 			stage.setResizable(false);
 			stage.show();
 			

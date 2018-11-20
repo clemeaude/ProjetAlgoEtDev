@@ -8,9 +8,14 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import player.Player;
 
 public class MenuIndexController {
+    @FXML
+    private Label bienvenue;
 	
     @FXML
     private Button jouer;
@@ -25,6 +30,13 @@ public class MenuIndexController {
     private Button quitter;
 
     @FXML
+    void initialize() 
+    {
+    	bienvenue.setText("Bienvenue "+ Player.id +" !");
+    }
+    
+    
+    @FXML
     void clickOnJouer(ActionEvent event) 
     {
     	Stage stage = new Stage();
@@ -33,7 +45,8 @@ public class MenuIndexController {
     	{
     		Parent root = FXMLLoader.load(getClass().getResource("../ressources/MenuJouer.fxml"));
     		stage.setScene(new Scene(root));
-			stage.setTitle("Bienvenue");
+			stage.setTitle("Jeux");
+			stage.getIcons().add(new Image("file:jeux.jpg"));
 			stage.setResizable(false);
 			stage.show();
 			
@@ -55,7 +68,8 @@ public class MenuIndexController {
     	{
     		Parent root = FXMLLoader.load(getClass().getResource("../ressources/MenuScore.fxml"));
     		stage.setScene(new Scene(root));
-			stage.setTitle("Bienvenue");
+			stage.setTitle("Classement");
+			stage.getIcons().add(new Image("file:BckClassement.jpg"));
 			stage.setResizable(false);
 			stage.show();
 			
@@ -77,7 +91,7 @@ public class MenuIndexController {
     	{
     		Parent root = FXMLLoader.load(getClass().getResource("../ressources/Connexion.fxml"));
     		stage.setScene(new Scene(root));
-			stage.setTitle("Bienvenue");
+			stage.setTitle("Connexion");
 			stage.setResizable(false);
 			stage.show();
 			
