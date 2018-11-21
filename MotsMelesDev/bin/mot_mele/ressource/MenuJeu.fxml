@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mot_mele.controler.MenuJeu">
+   <center>
+      <Pane prefHeight="600.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Text layoutX="175.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Bienvenue sur les mots mélés">
+               <font>
+                  <Font name="Franklin Gothic Medium" size="20.0" />
+               </font>
+            </Text>
+            <ImageView fx:id="imageJeu" fitHeight="285.0" fitWidth="204.0" layoutX="201.0" layoutY="102.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@motsmeles.jpg" />
+               </image>
+            </ImageView>
+            <Button fx:id="creer" layoutX="159.0" layoutY="471.0" mnemonicParsing="false" onAction="#startGame" text="Créer une partie" />
+            <Button fx:id="quitter" layoutX="356.0" layoutY="471.0" mnemonicParsing="false" onAction="#clickOnQuitter" text="Quitter le jeu" />
+         </children>
+      </Pane>
+   </center>
+</BorderPane>
