@@ -1,0 +1,334 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.geometry.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.layout.AnchorPane?>
+
+<AnchorPane prefHeight="600.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="mot_mele.controler.MotsMeles">
+   <children>
+      <SplitPane dividerPositions="0.29797979797979796" prefHeight="600.0" prefWidth="600.0" style="-fx-background-color: lavender;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+        <items>
+          <AnchorPane maxWidth="175.0" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="100.0">
+               <children>
+                  <TextArea layoutX="5.0" layoutY="30.0" prefHeight="30.0" prefWidth="200.0" style="-fx-background-color: lavender;" text="Voici la liste des mots" wrapText="true" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="30.0">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </TextArea>
+                  <GridPane fx:id="listemots" gridLinesVisible="true" layoutX="-12.0" layoutY="169.0" maxWidth="160.0" minHeight="160.0" prefWidth="160.0" AnchorPane.leftAnchor="5.0" AnchorPane.topAnchor="150.0">
+                    <columnConstraints>
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label fx:id="premierMot" />
+                        <Label fx:id="deuxiemeMot" GridPane.rowIndex="1" />
+                        <Label fx:id="troisiemeMot" wrapText="true" GridPane.rowIndex="2" />
+                        <Label fx:id="quatriemeMot" GridPane.rowIndex="3" />
+                        <Label fx:id="cinquiemeMot" GridPane.rowIndex="4" />
+                        <Label fx:id="sixiemeMot" GridPane.rowIndex="5" />
+                        <Label fx:id="septiemeMot" GridPane.rowIndex="6" />
+                        <Label fx:id="huitiemeMot" GridPane.rowIndex="7" />
+                        <Label fx:id="neuxiemeMot" GridPane.rowIndex="8" />
+                        <Label fx:id="dixiemeMot" GridPane.rowIndex="9" />
+                     </children>
+                  </GridPane>
+                  <Button fx:id="retour" layoutX="14.0" layoutY="519.0" mnemonicParsing="false" onAction="#retourMenu" text="Retour" />
+                  <Button fx:id="quitter" layoutX="75.0" layoutY="519.0" mnemonicParsing="false" onAction="#clickOnquitter" text="Quitter le jeu" />
+                  <Button fx:id="afficheListe" layoutX="62.0" layoutY="75.0" mnemonicParsing="false" onAction="#debutGame" text="Afficher" />
+               </children>
+            </AnchorPane>
+          <AnchorPane minHeight="160.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+               <children>
+                  <GridPane fx:id="grille" layoutX="-33.0" layoutY="74.0" AnchorPane.bottomAnchor="74.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="74.0">
+                    <columnConstraints>
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                      <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                        <ColumnConstraints fillWidth="false" halignment="CENTER" hgrow="SOMETIMES" minWidth="10.0" prefWidth="30.0" />
+                    </columnConstraints>
+                    <rowConstraints>
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                      <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                        <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                    </rowConstraints>
+                     <children>
+                        <Label textAlignment="CENTER" />
+                        <Label textAlignment="CENTER" GridPane.columnIndex="1" />
+                        <Label textAlignment="CENTER" GridPane.columnIndex="2" />
+                        <Label GridPane.columnIndex="3" />
+                        <Label GridPane.columnIndex="4" />
+                        <Label GridPane.columnIndex="5" />
+                        <Label GridPane.columnIndex="6" />
+                        <Label GridPane.columnIndex="7" />
+                        <Label GridPane.columnIndex="8" />
+                        <Label GridPane.columnIndex="9" />
+                        <Label GridPane.columnIndex="10" />
+                        <Label GridPane.columnIndex="11" />
+                        <Label GridPane.columnIndex="12" />
+                        <Label prefHeight="17.0" prefWidth="22.0" GridPane.columnIndex="13" />
+                        <Label GridPane.columnIndex="14" />
+                        <Label GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="1" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="1" />
+                        <Label GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="2" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="2" />
+                        <Label GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="3" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="3" />
+                        <Label GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="4" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="4" />
+                        <Label GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="5" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="5" />
+                        <Label GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="6" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="6" />
+                        <Label GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="7" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="7" />
+                        <Label GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="8" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="8" />
+                        <Label GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="9" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="9" />
+                        <Label GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="10" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="10" />
+                        <Label GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="11" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="11" />
+                        <Label GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="12" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="12" />
+                        <Label GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="12" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="13" GridPane.rowIndex="13" />
+                        <Label GridPane.columnIndex="14" GridPane.rowIndex="13" />
+                        <Label GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="1" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="2" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="3" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="4" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="5" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="6" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="7" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="8" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="9" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="10" GridPane.rowIndex="14" />
+                        <Label GridPane.columnIndex="11" GridPane.rowIndex="14" />
+                        <Label alignment="CENTER" textAlignment="CENTER" GridPane.columnIndex="12" GridPane.rowIndex="14" />
+                        <Label prefHeight="17.0" prefWidth="0.0" textAlignment="CENTER" GridPane.columnIndex="13" GridPane.rowIndex="14" />
+                        <Label textAlignment="CENTER" GridPane.columnIndex="14" GridPane.rowIndex="14" />
+                     </children>
+                     <opaqueInsets>
+                        <Insets bottom="50.0" left="50.0" right="50.0" top="50.0" />
+                     </opaqueInsets>
+                  </GridPane>
+                  <Button fx:id="debutPartie" layoutX="143.0" layoutY="27.0" mnemonicParsing="false" onAction="#afficheGrille" text="Creer la grille">
+                     <font>
+                        <Font name="Arial Black" size="12.0" />
+                     </font>
+                  </Button>
+                  <Line endX="1920.0" layoutX="95.0" layoutY="65.0" startX="-100.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="70.0" />
+                  <Line endX="1920.0" layoutX="106.0" layoutY="531.0" startX="-100.0" AnchorPane.bottomAnchor="70.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" />
+               </children>
+            </AnchorPane>
+        </items>
+      </SplitPane>
+   </children>
+</AnchorPane>
