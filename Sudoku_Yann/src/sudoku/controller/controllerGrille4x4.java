@@ -1,9 +1,11 @@
 package sudoku.controller;
 
+import java.io.IOException;
 import java.util.Random;
 
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Node;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextArea;
@@ -86,49 +88,34 @@ public class controllerGrille4x4 {
 	@FXML
 	private Button Reset;
 	
-	private long debut, tempsJeu, nbHeure, nbMin, nbSec;
-	
 	public static void setBorderpane(BorderPane _borderpane) {
 		borderpane = _borderpane;
-	}
-
-	private Pane getPane() {
-		AnchorPane anchorpane = null;
-		for (Node node : borderpane.getChildren()) {
-			if (node instanceof AnchorPane) {
-				anchorpane = ((AnchorPane) node);
-			}
-		}
-
-		// get Pane from AnchorPane
-		Pane p = null;
-		for (Node node2 : anchorpane.getChildren()) {
-			if (node2 instanceof Pane) {
-				p = ((Pane) node2);
-			}
-
-		}
-		return p;
 	}
 
 	@FXML
 	void clickOnQuitter(ActionEvent event) {
 		Stage stage = (Stage) retour.getScene().getWindow();
 		stage.close();
+		
+		Programme p = new Programme();
+		p.start(new Stage());
 	}
 
 	@FXML
 	void clickOnInit(ActionEvent event) {
 		if (!Programme.getGrille().grilleEgale(new Grille(Programme.getGrille().getTaille(), Programme.getGrille().getType()))) {
-			Pane p = getPane();
+			Pane p = Programme.getPane();
 
 			for (Node node3 : p.getChildren()) {
 				if (node3 instanceof TextField) {
 					// clear
 					if (!node3.getId().equals("score")) {
 						((TextField) node3).setText("");
-						((TextField) node3).setEditable(true);
+						((TextField) node3).setEditable(false);
 						((TextField) node3).setStyle(null);
+					}
+					else {
+						((TextField) node3).setText("0");
 					}
 				}
 				if (node3 instanceof TextArea) {
@@ -141,7 +128,7 @@ public class controllerGrille4x4 {
 		}
 		
 		int revele = 0;
-		Pane p = getPane();
+		Pane p = Programme.getPane();
 
 		for (Node node3 : p.getChildren()) {
 			if (node3 instanceof TextArea) {
@@ -188,24 +175,29 @@ public class controllerGrille4x4 {
 			}
 		}
 		
+		Programme.setAncienneGrille(Programme.getGrille());
+		
 		verifier.setDisable(false);
 		
-		debut = System.currentTimeMillis();
+		Programme.getGrille().setDebut(System.currentTimeMillis());
 	}
 
 	@FXML
-	void clickOnVerifier(ActionEvent event) {
-		Pane p = getPane();
+	void clickOnVerifier(ActionEvent event) throws IOException{
+		Pane p = Programme.getPane();
+		Programme.setAncienneGrille(Programme.getGrille());
 
 		for (Node node: p.getChildren()) {
 			if (node instanceof TextField) {
 				if (!node.getId().equals("score")) {
+					
+					String nom = node.getId();
+					nom = nom.replaceAll("case", "");
+					int num = Integer.parseInt(nom);
+					int x = num%Programme.getGrille().getTaille();
+					int y = (num - x) / Programme.getGrille().getTaille();
+					
 					if (!((TextField) node).getText().equals("")) {
-						String nom = node.getId();
-						nom = nom.replaceAll("case", "");
-						int num = Integer.parseInt(nom);
-						int x = num%Programme.getGrille().getTaille();
-						int y = (num - x) / Programme.getGrille().getTaille();
 						String val = ((TextField) node).getText();
 						Programme.getGrille().saisie(y+1, x+1, val.toUpperCase());
 						if (!val.equals(val.toUpperCase())) {
@@ -218,15 +210,11 @@ public class controllerGrille4x4 {
 					}
 					else {
 						((TextField) node).setStyle(null);
+						Programme.getGrille().initCase(y+1, x+1);
 					}
-				}
-				else {
-					
 				}
 			}
 		}
-
-		Programme.getGrille().printGrille();
 
 		int nbTextField = 0;
 		int nbTextFieldInit = 0;
@@ -242,15 +230,6 @@ public class controllerGrille4x4 {
 						int x = num%Programme.getGrille().getTaille();
 						int y = (num - x) / Programme.getGrille().getTaille();
 
-						int SGx = Programme.getGrille().chercheSGx(x+1);
-						int SGy = Programme.getGrille().chercheSGy(y+1);
-						System.out.println("case: " + num + 
-								" ,x: " + x + 
-								" ,y: " + y + 
-								" ,val: " + ((TextField) node).getText() + 
-								" ,SGx: " + SGx +
-								" ,SGy: " + SGy);
-
 						if (Programme.getGrille().verifValCase(y, x, ((TextField) node).getText())) {
 							((TextField) node).setStyle("-fx-text-fill: white; -fx-background-color: green");
 						}
@@ -263,18 +242,92 @@ public class controllerGrille4x4 {
 		}
 		if (nbTextField == nbTextFieldInit) {
 			if (Programme.getGrille().verifGrille(Programme.getGrille().getTab_Sous_Grille())) {
-				tempsJeu = (System.currentTimeMillis() - debut) / 1000;
-				nbHeure = (tempsJeu - (tempsJeu % 3600))/ 3600;
-				nbMin = (((tempsJeu - nbHeure*3600) - (tempsJeu % 60)) / 60);
-				nbSec = (tempsJeu - nbHeure*3600 - nbMin*60);
-				System.out.println("Vous avez joue " + nbHeure + " heure(s), " + nbMin + " minute(s) et " + nbSec + " seconde(s).");
-				System.out.println("La grille est complete, vous avez gagne!");
-			}
-			else {
-				System.out.println("La grille comporte une ou des erreurs!");
+				AnchorPane anchorpane = null;
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Programme.class.getResource("ressource/partieGagnee.fxml"));
+				anchorpane = (AnchorPane) loader.load();
+				borderpane = Programme.getRootLayout();
+				borderpane.setCenter(anchorpane);
+				borderpane.setBorder(null);
+				borderpane.setBottom(null);
+				borderpane.setTop(null);
+				Programme.getPrimaryStage().setTitle("Vous avez gagné :D");
+				
+				Programme.getGrille().setFin(System.currentTimeMillis());
+				Programme.getGrille().calculTemps();
 			}
 		}
+
+	}
+	
+	@FXML
+	void clickOnCase() {
+		this.verifie();
 	}
 
+	private void verifie() {
+		Pane p = Programme.getPane();
 
+		for (Node node: p.getChildren()) {
+			if (node instanceof TextField) {
+				
+				if (!node.getId().equals("score")) {
+
+					String nom = node.getId();
+					nom = nom.replaceAll("case", "");
+					int num = Integer.parseInt(nom);
+					int x = num%Programme.getGrille().getTaille();
+					int y = (num - x) / Programme.getGrille().getTaille();
+					String val = ((TextField) node).getText();
+					
+					if (!((TextField) node).getText().equals("")) {
+						
+						if (!val.equals(val.toUpperCase())) {
+							((TextField) node).setText(val.toUpperCase());
+							val = val.toUpperCase();
+						}
+						
+						if (Programme.getGrille().getTab_Case()[y][x].getValeur().equals("")) {
+							if (Programme.getGrille().verifCase(y, x, val)) {
+								Programme.getGrille().saisie(y+1, x+1, val);
+								((TextField) node).setStyle("-fx-text-fill: white; -fx-background-color: green");
+							}
+							else {
+								Programme.getGrille().saisie(y+1, x+1, val);
+								((TextField) node).setStyle("-fx-text-fill: white; -fx-background-color: red");
+							}
+						}
+						
+						
+						if (Programme.getGrille().verifCase(y, x, val) && 
+								Programme.getAncienneGrille().getTab_Case()[y][x].getValeur().equals("")) {
+							Programme.getGrille().saisie(y+1, x+1, val);
+							if (Programme.getGrille().getTab_Case()[y][x].getValeur().equals(val)) {
+								((TextField) node).setStyle("-fx-text-fill: white; -fx-background-color: green");
+							}
+							else {
+								((TextField) node).setStyle("-fx-text-fill: white; -fx-background-color: red");
+							}
+						}
+					}
+					else if (!Programme.getGrille().getTab_Case()[y][x].getInitialise()){
+						((TextField) node).setStyle(null);
+						Programme.getGrille().getTab_Case()[y][x].setValeur("");
+					}
+				}
+			}
+		}
+		
+		for (int y = 0; y < Programme.getGrille().getTaille(); y++) { //y => ligne
+			for (int x = 0; x < Programme.getGrille().getTaille(); x++) { //x => colonne
+				if (!Programme.getGrille().getTab_Case()[y][x].getValeur().equals(Programme.getAncienneGrille().getTab_Case()[y][x].getValeur())) {
+					Programme.getAncienneGrille().saisie(y, x, Programme.getGrille().getTab_Case()[y][x].getValeur());
+				}
+			}
+		}
+		
+		Programme.setGrille(Programme.getAncienneGrille());
+		
+		score.setText(Programme.getGrille().getScore());
+	}
 }

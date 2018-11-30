@@ -286,27 +286,6 @@ public class controllerGrille9x9 {
 		borderpane = _borderpane;
 	}
 
-
-
-	private Pane getPane() {
-		AnchorPane anchorpane = null;
-		for (Node node : borderpane.getChildren()) {
-			if (node instanceof AnchorPane) {
-				anchorpane = ((AnchorPane) node);
-			}
-		}
-
-		// get Pane from AnchorPane
-		Pane p = null;
-		for (Node node2 : anchorpane.getChildren()) {
-			if (node2 instanceof Pane) {
-				p = ((Pane) node2);
-			}
-
-		}
-		return p;
-	}
-
 	@FXML
 	void clickOnQuitter(ActionEvent event) {
 		Stage stage = (Stage) retour.getScene().getWindow();
@@ -316,7 +295,7 @@ public class controllerGrille9x9 {
 	@FXML
 	void clickOnInit(ActionEvent event) {
 		if (!Programme.getGrille().grilleEgale(new Grille(Programme.getGrille().getTaille(), Programme.getGrille().getType()))) {
-			Pane p = getPane();
+			Pane p = Programme.getPane();
 
 			for (Node node3 : p.getChildren()) {
 				if (node3 instanceof TextField) {
@@ -337,7 +316,7 @@ public class controllerGrille9x9 {
 		}
 
 		int revele = 0;
-		Pane p = getPane();
+		Pane p = Programme.getPane();
 
 		for (Node node3 : p.getChildren()) {
 			if (node3 instanceof TextArea) {
@@ -347,7 +326,7 @@ public class controllerGrille9x9 {
 			}
 		}
 
-		while (revele < 4) {
+		while (revele < 17) {
 			Random ran = new Random();
 			int x = ran.nextInt(Programme.getGrille().getTaille()) + 1;
 			int y = ran.nextInt(Programme.getGrille().getTaille()) + 1;
@@ -389,8 +368,6 @@ public class controllerGrille9x9 {
 			stage.setScene(new Scene(root));
 			stage.setTitle("Aide");
 			stage.setResizable(false);
-			controllerAide ca = new controllerAide();
-			ca.setTexteListe();
 			stage.show();
 
 		}
@@ -401,7 +378,7 @@ public class controllerGrille9x9 {
 
 	@FXML
 	void clickOnReset(ActionEvent event) {
-		Pane p = getPane();
+		Pane p = Programme.getPane();
 
 		for (Node node3 : p.getChildren()) {
 			if (node3 instanceof TextField) {
@@ -421,18 +398,20 @@ public class controllerGrille9x9 {
 	}
 
 	@FXML
-	void clickOnVerifier(ActionEvent event) {
-		Pane p = getPane();
+	void clickOnVerifier(ActionEvent event) throws IOException {
+		Pane p = Programme.getPane();
 
 		for (Node node: p.getChildren()) {
 			if (node instanceof TextField) {
 				if (!node.getId().equals("score")) {
+					
+					String nom = node.getId();
+					nom = nom.replaceAll("case", "");
+					int num = Integer.parseInt(nom);
+					int x = num%Programme.getGrille().getTaille();
+					int y = (num - x) / Programme.getGrille().getTaille();
+					
 					if (!((TextField) node).getText().equals("")) {
-						String nom = node.getId();
-						nom = nom.replaceAll("case", "");
-						int num = Integer.parseInt(nom);
-						int x = num%Programme.getGrille().getTaille();
-						int y = (num - x) / Programme.getGrille().getTaille();
 						String val = ((TextField) node).getText();
 						Programme.getGrille().saisie(y+1, x+1, val.toUpperCase());
 						if (!val.equals(val.toUpperCase())) {
@@ -445,6 +424,7 @@ public class controllerGrille9x9 {
 					}
 					else {
 						((TextField) node).setStyle(null);
+						Programme.getGrille().initCase(y+1, x+1);
 					}
 				}
 				else {
@@ -490,7 +470,17 @@ public class controllerGrille9x9 {
 		}
 		if (nbTextField == nbTextFieldInit) {
 			if (Programme.getGrille().verifGrille(Programme.getGrille().getTab_Sous_Grille())) {
-				System.out.println("La grille est complete, vous avez gagne!");
+				AnchorPane anchorpane = null;
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(Programme.class.getResource("ressource/partieGagnee.fxml"));
+				anchorpane = (AnchorPane) loader.load();
+				borderpane = Programme.getRootLayout();
+				borderpane.setCenter(anchorpane);
+				borderpane.setBorder(null);
+				borderpane.setBottom(null);
+				borderpane.setTop(null);
+				Programme.getPrimaryStage().setTitle("Vous avez gagné :D");
+				
 			}
 			else {
 				System.out.println("La grille comporte une ou des erreurs!");

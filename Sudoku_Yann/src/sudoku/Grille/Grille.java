@@ -15,6 +15,7 @@ public class Grille {
 	private Sous_Grille[][] tab_Sous_Grille;
 	private String type;
 	private List<String> listeChoix = new ArrayList<String>();
+	private long debut, fin, nbHeure, nbMin, nbSec, tempsJeu;
 
 	public Grille() {
 		this.taille = 0;
@@ -23,6 +24,7 @@ public class Grille {
 		this.tab_Case = new Case[0][0];
 		this.tab_Sous_Grille = new Sous_Grille[0][0];
 		this.listeChoix = new ArrayList<String>();
+		this.debut = this.fin = this.nbHeure = this.nbMin = this.nbSec = this.tempsJeu = 0;
 	}
 
 	public Grille(int taille, String type) {
@@ -32,6 +34,7 @@ public class Grille {
 		this.type = type;
 		this.tab_Case = new Case[this.taille][this.taille];
 		this.tab_Sous_Grille = new Sous_Grille[(int)Math.sqrt(this.taille)][(int)Math.sqrt(this.taille)];
+		this.debut = this.fin = this.nbHeure = this.nbMin = this.nbSec = this.tempsJeu = 0;
 
 		//Cr�ation des sous-grilles
 		for (int y = 0; y < Math.sqrt(this.taille); y++) {	//y => ligne
@@ -186,6 +189,29 @@ public class Grille {
 		return true;
 	}
 	
+	public boolean verifCase(int y, int x, String val){
+		
+		int SGx = chercheSGx(x);
+		int SGy = chercheSGy(y);
+		
+		System.out.println("SGy: " + SGy + " SGx:" + SGx);
+		
+		if (!this.verif_Sous_Grille(this.getTab_Sous_Grille()[SGy][SGx])) {
+			return false;
+		}
+		for (int _y = 0; _y < this.getTaille(); _y++) {
+			if (this.getTab_Case()[_y][x].getValeur().equals(val) && _y != y) {
+				return false;
+			}
+		}
+		for (int _x = 0; _x < this.getTaille(); _x++) {
+			if (this.getTab_Case()[y][_x].getValeur().equals(val) && _x != x) {
+				return false;
+			}
+		}
+		return true;
+	}
+	
 	public void initRevele(int nbRevele) {
 		int revele = 0;
 
@@ -291,7 +317,7 @@ public class Grille {
 		this.score = Integer.toString(score);
 	}
 	
-	private String getScore() {
+	public String getScore() {
 		return this.score;
 	}
 	
@@ -322,13 +348,10 @@ public class Grille {
 			this.tab_Sous_Grille[SGy][SGx].supprCase(this.tab_Case[y-1][x-1]);
 			this.tab_Case[y-1][x-1].setValeur(valeur);
 			this.tab_Sous_Grille[SGy][SGx].ajouteCase(this.tab_Case[y-1][x-1]);
-			System.out.println(this.tab_Sous_Grille[SGy][SGx].afficheSousGrille());
 			this.setScore(Integer.parseInt(this.score) + 50);
-			System.out.println("La valeur a bien ete saisie: vous avez " + this.getScore() + " points!");
 		}
 		else {
 			this.setScore(Integer.parseInt(this.score) - 25);
-			System.out.println("La valeur n'a pas ete saisie: vous avez " + this.getScore() + " points!");
 		}
 	}
 	
@@ -338,14 +361,12 @@ public class Grille {
 				return false;
 			}
 		}
-		System.out.println("Mes lignes sont valides!");
 		
 		for (int x = 0; x <this.getTaille(); x++) {
 			if (this.verifCol(x) == false) {
 				return false;
 			}
 		}
-		System.out.println("Mes colonnes sont valides!");
 		
 		for (int y = 0; y < Math.sqrt(this.taille); y++) {	//y => ligne
 			for (int x = 0; x < Math.sqrt(this.taille); x++) { //x => colonne
@@ -354,7 +375,6 @@ public class Grille {
 				}
 			}
 		}
-		System.out.println("Mes sous grilles sont valides!");
 		
 		return true;
 	}
@@ -401,6 +421,14 @@ public class Grille {
 		return true;
 	}
 	
+	public void initCase(int y, int x) {
+		int SGy = chercheSGy(y);
+		int SGx = chercheSGx(x);
+		this.tab_Sous_Grille[SGy][SGx].supprCase(this.tab_Case[y-1][x-1]);
+		this.tab_Case[y-1][x-1].setValeur("");
+		this.tab_Sous_Grille[SGy][SGx].ajouteCase(this.tab_Case[y-1][x-1]);
+	}
+	
 	public Case[][] getTab_Case(){
 		return this.tab_Case;
 	}
@@ -427,5 +455,63 @@ public class Grille {
 		}
 		
 		return true;
+	}
+
+	public long getDebut() {
+		return debut;
+	}
+
+	public void setDebut(long debut) {
+		this.debut = debut;
+	}
+
+	public long getFin() {
+		return fin;
+	}
+
+	public void setFin(long fin) {
+		this.fin = fin;
+	}
+
+	public long getNbHeure() {
+		return nbHeure;
+	}
+
+	public void setNbHeure(long nbHeure) {
+		this.nbHeure = nbHeure;
+	}
+
+	public long getNbMin() {
+		return nbMin;
+	}
+
+	public void setNbMin(long nbMin) {
+		this.nbMin = nbMin;
+	}
+
+	public long getNbSec() {
+		return nbSec;
+	}
+
+	public void setNbSec(long nbSec) {
+		this.nbSec = nbSec;
+	}
+
+	public long getTempsJeu() {
+		return tempsJeu;
+	}
+
+	public void setTempsJeu(long tempsJeu) {
+		this.tempsJeu = tempsJeu;
+	}
+	
+	public String calculTemps() {
+		this.tempsJeu = (this.fin - this.debut) / 1000;
+		
+		this.nbHeure = (this.tempsJeu - (this.tempsJeu % 3600))/ 3600;
+		this.nbMin = (((this.tempsJeu - this.nbHeure*3600) - (this.tempsJeu % 60)) / 60);
+		this.nbSec = (this.tempsJeu - this.nbHeure*3600 - this.nbMin*60);
+		
+		return "Vous avez mis " + this.nbHeure + "h, " + this.nbMin + "min et " + this.nbSec + "sec.";
 	}
 }

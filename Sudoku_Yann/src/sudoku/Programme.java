@@ -4,9 +4,12 @@ import java.io.IOException;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
+import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
+import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 import sudoku.Grille.Grille;
 
@@ -15,6 +18,9 @@ public class Programme extends Application{
 	private static Stage primaryStage;
 	private static BorderPane rootLayout;
 	private static Grille grille;
+	private static Grille ancienneGrille;
+
+	
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
@@ -39,6 +45,7 @@ public class Programme extends Application{
 			// Show the scene containing the root layout.
 			Scene scene = new Scene(rootLayout);
 			primaryStage.setScene(scene);
+			primaryStage.setResizable(false);
 			primaryStage.show();
 		} catch (IOException e) {
 			e.printStackTrace();
@@ -47,6 +54,10 @@ public class Programme extends Application{
 	
 	public static Stage getPrimaryStage() {
 		return primaryStage;
+	}
+	
+	public static void setPrimaryStage(BorderPane borderpane) {
+		primaryStage.setScene(new Scene(borderpane));
 	}
 	
 	public static BorderPane getRootLayout() {
@@ -64,4 +75,32 @@ public class Programme extends Application{
 	public static Grille getGrille() {
 		return grille;
 	}
+	
+	public static void setAncienneGrille (Grille g) {
+		ancienneGrille = g;
+	}
+	
+	public static Grille getAncienneGrille() {
+		return ancienneGrille;
+	}
+
+	public static Pane getPane() {
+		AnchorPane anchorpane = null;
+		for (Node node : rootLayout.getChildren()) {
+			if (node instanceof AnchorPane) {
+				anchorpane = ((AnchorPane) node);
+			}
+		}
+
+		// get Pane from AnchorPane
+		Pane p = null;
+		for (Node node2 : anchorpane.getChildren()) {
+			if (node2 instanceof Pane) {
+				p = ((Pane) node2);
+			}
+
+		}
+		return p;
+	}
+	
 }
